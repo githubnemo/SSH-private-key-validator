@@ -65,8 +65,6 @@ def validSSHprivateKey(text):
 				return optionState(text[i+2:])
 
 			if not optionPattern.match(line):
-				if len(line) != 0:
-					return False, 'Found: content, expected: option'
 				return contentState(text[i+1:])
 
 		return False, 'Expected option, found nothing'
