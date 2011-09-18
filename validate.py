@@ -45,16 +45,22 @@ def validSSHprivateKey(text):
 
 	startPattern = re.compile("^-----BEGIN [A-Z]+ PRIVATE KEY-----")
 	optionPattern = re.compile("^.+: .+")
+	contentPattern = re.compile("^(.{64}$|.+[=]{1,2}$)")
 	endPattern = re.compile("^-----END [A-Z]+ PRIVATE KEY-----")
 
 	def contentState(text):
 		for i in range(0, len(text)):
 			line = text[i]
+
 			if endPattern.match(line):
 				if i == len(text)-1 or len(text[i+1]) == 0:
 					return True, ''
 				else:
 					return False, 'At end but content coming'
+
+			elif not contentPattern.match(line):
+				return False, 'Wrong string in content section'
+
 		return False, 'No content or missing end line'
 
 	def optionState(text):
