@@ -45,7 +45,7 @@ def validSSHprivateKey(text):
 
 	startPattern = re.compile("^-----BEGIN [A-Z]+ PRIVATE KEY-----")
 	optionPattern = re.compile("^.+: .+")
-	contentPattern = re.compile("^(.{64}$|.+[=]{1,2}$)")
+	contentPattern = re.compile("^([a-zA-Z0-9+/]{64}|[a-zA-Z0-9+/]{1,64}[=]{0,2})$")
 	endPattern = re.compile("^-----END [A-Z]+ PRIVATE KEY-----")
 
 	def contentState(text):
